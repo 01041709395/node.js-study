@@ -1,0 +1,42 @@
+postman 등장
+
+post 사용 시기
+
+- 회원가입 = 나 좀 등록해줘 = 나 id, password, name, email, contact(데이터 보내기)
+- url 데이터 보내면 안됨
+- 공개되는 화면에 데이터 보여주면 보안의 문제 발생
+- body 숨겨서 보내기
+- 정확히 api post 요청
+- body 공간에 데이터가 숨겨져서 들어옴
+- 웹 브라우저에서는 데이터 숨길 수 있는 방법 x
+- post → 데이터와 body 같이 숨겨져 와야함
+- web brower → 바디 숨길수 없으니까 url로 보낼수 있는 get 방식만 취급
+- 포스트맨으로 post 테스트 확인
+
+postman get test, post 간단 test
+save : ctrl + s
+
+//프론트와 백엔드 사이에 돌려주는 respon json 값
+const express = require('express')
+const app = express()
+const port = 1234
+
+
+app.use(express.json()) // 다른 모듈 사용할 때 사용
+app.post('/test', function (req,res) {
+    // body에 숨겨져서 들어온 데이터 화면에 뿌리기
+
+    console.log(req.body.message)
+    res.json(req.body)
+})
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+})
+
+
+issue
+
+1. postman body 값 전달 안되는 이슈 발생
+- express.json 미들웨어 코드 작성 문제
+- (express.json**()) → 함수 호출할 때 처럼 소괄호를 넣지 않으면 미들웨어 실행 불가**
